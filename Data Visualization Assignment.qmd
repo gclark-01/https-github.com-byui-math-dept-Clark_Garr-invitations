@@ -1,0 +1,67 @@
+---
+title: "Data Visualization"
+---
+```{r}
+#load libraries and get a view of the columns to open up in a side window
+library(tidyverse)
+library(nycflights13)
+#View(flights)
+```
+
+```{r}
+# filter the flights to not get errors when plotting. I want to keep the Cartesian grid more focused so as to more clearly show the distributions.
+flights_delay <- flights %>%
+  filter(!is.na(arr_delay)) %>%
+  filter(between(arr_delay, -60, 240))
+
+# Use a histogram chart in this graph to better showcase distributions by the height of the bars presented
+
+  ggplot(flights_delay, aes(x = arr_delay)) +
+  geom_histogram(bins = 60, fill = "skyblue") + scale_y_continuous(labels = scales::comma) +
+  coord_cartesian(xlim = c(-60, 240)) +
+  labs(
+    title = "Distribution of Arrival Delays",
+    x = "Arrival Delay (minutes)",
+    y = "Number of Flights"
+  )
+```
+
+```{r}
+# Again I needed to filter the data so that I was able to keep the graphic easier to interpret as well as more enjoyable to look at.
+
+arrive_delay <- flights %>%
+  filter(!is.na(dep_delay)) %>%
+  filter(between(dep_delay, -60, 240))
+
+# As this graphic is similar to the last graphic made, but different in category, I chose to make both histograms for better comparison and contrast.
+
+ggplot(data = arrive_delay, aes(x = dep_delay)) + geom_histogram(bins = 60, fill = "red") + scale_y_continuous(labels = scales::comma) + 
+  coord_cartesian(xlim = c(-60,240))+
+  labs(
+    title = "Distribution of Departure Delays",
+    x = "Departure Delay (minutes)",
+    y = "Number of Flights"
+  )
+
+```
+
+```{r}
+# Create a new subset of the data to work with here and filter out NA results to not have errors appear on the graphic.
+
+dep_vs_arr <- flights %>%
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+# I tried using the suppress messages code I learned online to eliminate the distracting notification on top of the graphic, but it did not work like I hoped it would. I need to revisit this line to make the graphic more pleasing to look at.
+suppressMessages(
+  ggplot(dep_vs_arr, aes(x = dep_delay, y = arr_delay)) +
+    geom_smooth(method = "lm", color = "red") + 
+# I elected to avoid putting an alpha value in this portion of the code. My original version contained an alpha value and I felt it made the graph appear too busy when the main value obtained was the correlation between arrival delays and departure delays. If desired, I can always add in the value if given at the client's request
+    labs(
+      title = "Arrival Delay vs. Departure Delay",
+      x = "Departure Delay (minutes)",
+      y = "Arrival Delay (minutes)"
+    )
+)
+
+```
+  In this graphical study, I decided to view the distributions of the arrival and departure delays for flights in our given data set. The first graphic is a view of the distribution for arrival delays of flights. It can be observed that the majority of arrival delays are centered about a value of 0 minutes. In the second graphic, the distribution of departure delays is demonstrated in a like manner, and again we see that most flight departure delays are centered about the value of 0 minutes. For the final graphic, I plotted the Arrival Delays against the Departure Delays. In doing so, we are able to determine how these two variables interact In this particular instance, a positive correlation is reflected in the data. Due to this positive correlation, we may assume that as the departure delay of a flight increases, so does the arrival delay and vice versa.
