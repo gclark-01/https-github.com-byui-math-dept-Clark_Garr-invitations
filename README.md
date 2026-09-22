@@ -13,3 +13,6 @@ the data to being about the different characteristics of the subjects. Data is t
 leads to differences in measured results. Additionally, I could focus in on what type of interactions I am interested in. For example, instead of asking a general question on how they interact, I focus on the
 interactions against measured and expected outcomes. Finally, my last question is very vague, but that is somewhat potential because for me it is important to know that there will not always be one perfect way
 to display observed values and that I need to make sure I use multiple forms of data representation.
+
+Hey Professor! I've been trying to get caught up on all of this and man do I feel like i'm a bit behind, but that is to be expected
+when you sign up for classes late. well here is to hoping I get caught up and have success in this course!
