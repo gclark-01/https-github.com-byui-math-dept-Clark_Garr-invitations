@@ -1,12 +1,12 @@
 ---
 title: "w02_Task1"
-Visualizing Large Distributions
 ---
 
 I would like to explore the relationship between airtime and distance.
 
 ```{r}
 #this will be the first graph I make using the air time of flights
+library(ggplot2)
 ggplot(nycflights13::flights, aes(x= air_time)) +
   geom_histogram(binwidth = 100,fill = "steelblue", na.rm = TRUE) +
   scale_x_continuous(breaks = seq(-100, 700, by = 100)) +
@@ -21,6 +21,7 @@ In this graph, we see the distribution of flights based on the time of the fligh
 
 ```{r}
 #Here I will make the second histogram to show the distribution of flight distance from NYC
+library(ggplot2)
 ggplot(data = nycflights13::flights, aes(x = distance)) +
   geom_histogram(binwidth = 1000, fill = "steelblue", na.rm = TRUE) +
   scale_x_continuous(breaks = seq(0,7000, by = 1000)) +
@@ -35,6 +36,7 @@ In this graph we see the distribution of flights based on flight distance. Accor
 
 ```{r}
 #Here is an attempt to make a bivariate plot of the flight time vs flight distance
+library(ggplot2)
 ggplot(nycflights13::flights, aes(x = air_time, y = distance)) +
   geom_smooth(method = lm, na.rm = TRUE) +
   labs(
