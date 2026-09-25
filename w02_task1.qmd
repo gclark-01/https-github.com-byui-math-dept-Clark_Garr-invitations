@@ -1,0 +1,51 @@
+---
+title: "w02_Task1"
+Visualizing Large Distributions
+---
+
+I would like to explore the relationship between airtime and distance.
+
+```{r}
+#this will be the first graph I make using the air time of flights
+ggplot(nycflights13::flights, aes(x= air_time)) +
+  geom_histogram(binwidth = 100,fill = "steelblue", na.rm = TRUE) +
+  scale_x_continuous(breaks = seq(-100, 700, by = 100)) +
+  labs(
+  title = "Distribution of Flight Air Time",
+  x = "Air Time in Minutes",
+  y = "Number of Flights"
+)
+```
+
+In this graph, we see the distribution of flights based on the time of the flight. According to the data, most flights taking off from NYC airport in 2013 took within 50-150 minutes to complete.
+
+```{r}
+#Here I will make the second histogram to show the distribution of flight distance from NYC
+ggplot(data = nycflights13::flights, aes(x = distance)) +
+  geom_histogram(binwidth = 1000, fill = "steelblue", na.rm = TRUE) +
+  scale_x_continuous(breaks = seq(0,7000, by = 1000)) +
+  labs( title = "Distribution of Flight Distance",
+        x = "Flight Distance in Miles",
+        y = "Number of Flights"
+    
+  )
+```
+
+In this graph we see the distribution of flights based on flight distance. According to the graphed sample, most flights flew within the distances of 500-1500 miles.
+
+```{r}
+#Here is an attempt to make a bivariate plot of the flight time vs flight distance
+ggplot(nycflights13::flights, aes(x = air_time, y = distance)) +
+  geom_smooth(method = lm, na.rm = TRUE) +
+  labs(
+    title = "Flight Distance vs. Flight Duration",
+    x = "Flight Duration in Minutes",
+    y = "Flight Distance in Miles"
+    
+  )
+
+```
+
+Summary: For both of my single variable graphs, I chose to build histograms as a graphical representations as they are very adept at showing the distributions of the variable being examined. In my first graphic, I found that most flights leaving NYC had an airtime between 50-150 minutes. For the second graphic, I found that most flights had a distance between 500-1500 miles. In my final graphic, I compared the Flight Duration vs. the Flight Distance. The relationship is positive and linear in nature, implying that as flight distance increases, so does the duration of the flight.
+
+For my bivariate graph I chose two simple numeric values that would certainly have a linear relationship. However, going through the process was very valuable to me as it gave me a chance to try different graphing methods to best show that relationship. My first graph was a point plot, but I decided that graph was not correct as there are too many samples in the data and the graphic gets cluttered and harder to draw meaning from. I also tried a density map, but was similarly dissatisfied in how it did not clearly show the relationship I wanted to demonstrate. I finally landed on a simple line of best fit which clearly shows the positive and linear relationship between flight distance and flight duration.
